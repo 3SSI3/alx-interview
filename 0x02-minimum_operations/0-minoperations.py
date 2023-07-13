@@ -5,6 +5,10 @@ to result in exactly n H characters in the file.
 """
 
 def minOperations(n):
+    """
+    returns number of min operations
+    """
+
     now = 1
     start = 0
     counter = 0
@@ -18,3 +22,4 @@ def minOperations(n):
             now += start
             counter += 1
     return counter
+
