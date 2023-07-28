@@ -2,6 +2,8 @@
 
 """It determines if given data set represents
 a valid UTF-8 encoding"""
+
+
 def validUTF8(data):
     no_bytes = 0
 
@@ -17,16 +19,16 @@ def validUTF8(data):
 
             if no_bytes == 0:
                 continue
-            
+
             if no_bytes == 1 or no_bytes > 4:
                 return False
         else:
             if not (i & mask_1 and not (i & mask_2)):
                 return False
-            
+
         no_bytes -= 1
 
     if no_bytes == 0:
         return True
-    
+
     return False
