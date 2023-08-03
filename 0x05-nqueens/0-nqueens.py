@@ -1,5 +1,7 @@
 #!/usr/bin/python3
-
+"""The N queens puzzle is the challenge of placing
+N non-attacking queens on an NxN chessboard
+"""
 import sys
 
 def is_safe(board, row, col, N):
@@ -25,7 +27,7 @@ def solve_nqueens(N):
 
     def solve(col):
         if col >= N:
-            solutions.append(["".join(map(str, row)) for row in board])
+            solutions.append([(row, board[row].index(1)) for row in range(N)])
             return
 
         for row in range(N):
@@ -40,7 +42,7 @@ def solve_nqueens(N):
 def print_solutions(solutions):
     for solution in solutions:
         for row in solution:
-            print(row)
+            print(row, end=' ')
         print()
 
 def main():
