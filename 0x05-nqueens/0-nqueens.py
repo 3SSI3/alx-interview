@@ -2,11 +2,10 @@
 """
 Solve N queens problems on a NxN chessboard
 """
+
 import sys
 
 def is_safe(board, row, col, N):
-    # Check if a queen can be placed in the given row and column
-    # without attacking any other queens.
     for i in range(col):
         if board[row][i] == 1:
             return False
@@ -27,7 +26,7 @@ def solve_nqueens(N):
 
     def solve(col):
         if col >= N:
-            solutions.append([(row, board[row].index(1)) for row in range(N)])
+            solutions.append([(row, col) for row in range(N) if board[row][col] == 1])
             return
 
         for row in range(N):
@@ -40,10 +39,9 @@ def solve_nqueens(N):
     return solutions
 
 def print_solutions(solutions):
-    for solution in reversed(solutions):
-        for row in solution:
-            print(row, end=' ')
-        print()
+    for solution in solutions:
+        print(solution)
+    print()
 
 def main():
     if len(sys.argv) != 2:
