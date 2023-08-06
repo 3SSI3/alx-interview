@@ -2,6 +2,8 @@
 
 import sys
 
+
+
 def is_safe(board, row, col, N):
     # Check if a queen can be placed in the given row and column
     # without attacking any other queens.
