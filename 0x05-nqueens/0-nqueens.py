@@ -1,7 +1,4 @@
 #!/usr/bin/python3
-"""
-Solve N queens problems on a NxN chessboard
-"""
 
 import sys
 
@@ -26,7 +23,7 @@ def solve_nqueens(N):
 
     def solve(col):
         if col >= N:
-            solutions.append([(row, col) for row in range(N) if board[row][col] == 1])
+            solutions.append([(row, board[row].index(1)) for row in range(N) if board[row][col] == 1])
             return
 
         for row in range(N):
