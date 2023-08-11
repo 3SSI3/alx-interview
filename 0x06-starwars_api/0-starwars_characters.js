@@ -1,32 +1,44 @@
 #!/usr/bin/node
 
-const axios = require('axios');
+const request = require('request');
 
 const movieId = process.argv[2];
 
 const apiUrl = `https://swapi.dev/api/films/${movieId}/`;
 
-axios.get(apiUrl)
-  .then(response => {
-    const characters = response.data.characters;
-    printCharacters(characters, 0);
-  })
-  .catch(error => {
-    console.error('Error:', error.message);
-  });
+request(apiUrl, (error, response, body) => {
+  if (error) {
+    console.error('Error:', error);
+    return;
+  }
+
+  if (response.statusCode !== 200) {
+    console.error('Failed to retrieve movie information:', response.statusCode);
+    return;
+  }
+
+  const characters = JSON.parse(body).characters;
+  printCharacters(characters, 0);
+});
 
 function printCharacters(characters, index) {
   if (index >= characters.length) {
     return;
   }
 
-  axios.get(characters[index])
-    .then(charResponse => {
-      const characterName = charResponse.data.name;
-      console.log(characterName);
-      printCharacters(characters, index + 1);
-    })
-    .catch(charError => {
-      console.error('Error fetching character:', charError.message);
-    });
+  request(characters[index], (charError, charResponse, charBody) => {
+    if (charError) {
+      console.error('Error fetching character:', charError);
+      return;
+    }
+
+    if (charResponse.statusCode !== 200) {
+      console.error('Failed to retrieve character information:', charResponse.statusCode);
+      return;
+    }
+
+    const characterName = JSON.parse(charBody).name;
+    console.log(characterName);
+    printCharacters(characters, index + 1);
+  });
 }
